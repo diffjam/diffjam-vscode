@@ -6,12 +6,10 @@ import * as vscode from 'vscode';
 export class CodelensProvider implements vscode.CodeLensProvider {
 
     private codeLenses: vscode.CodeLens[] = [];
-    private regex: RegExp;
     private _onDidChangeCodeLenses: vscode.EventEmitter<void> = new vscode.EventEmitter<void>();
     public readonly onDidChangeCodeLenses: vscode.Event<void> = this._onDidChangeCodeLenses.event;
 
     constructor() {
-        this.regex = /(.+)/g;
 
         vscode.workspace.onDidChangeConfiguration((_) => {
             this._onDidChangeCodeLenses.fire();
@@ -21,15 +19,17 @@ export class CodelensProvider implements vscode.CodeLensProvider {
     public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.CodeLens[] | Thenable<vscode.CodeLens[]> {
 
         if (vscode.workspace.getConfiguration("diffjam").get("enableDiffjam", true)) {
+            const regex = /TODO(.+)/g;
             this.codeLenses = [];
-            const regex = new RegExp(this.regex);
             const text = document.getText();
+            console.log("text: ", text);
+            
             let matches;
             while ((matches = regex.exec(text)) !== null) {
                 const line = document.lineAt(document.positionAt(matches.index).line);
                 const indexOf = line.text.indexOf(matches[0]);
                 const position = new vscode.Position(line.lineNumber, indexOf);
-                const range = document.getWordRangeAtPosition(position, new RegExp(this.regex));
+                const range = document.getWordRangeAtPosition(position, new RegExp(regex));
                 if (range) {
                     this.codeLenses.push(new vscode.CodeLens(range));
                 }
