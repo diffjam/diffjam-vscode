@@ -17,7 +17,7 @@
         "Other"
     ],
     "activationEvents": [
-        "*"
+        "workspaceContains:**/diffjam.yaml"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -54,11 +54,12 @@
         "@typescript-eslint/eslint-plugin": "^4.16.0",
         "@typescript-eslint/parser": "^4.16.0",
         "eslint": "^7.21.0",
-        "typescript": "^4.3.5"
+        "typescript": "^4.3.5",
+        "vsce": "^2.3.0"
     },
     "dependencies": {
         "@types/lodash": "^4.14.176",
-        "diffjam": "3.0.10",
+        "diffjam": "3.0.11",
         "lodash": "^4.17.21",
         "vscode-languageclient": "^7.0.0"
     }
