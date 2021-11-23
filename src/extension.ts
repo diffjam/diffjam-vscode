@@ -48,7 +48,10 @@ function registerDiffJamDiagnostics(context: vscode.ExtensionContext) {
     // run when the document changes
     workspace.onDidChangeTextDocument(
       async (change: vscode.TextDocumentChangeEvent) => {
-        if (change.document.fileName.startsWith("extension-output")) {
+        if (
+          change.document.fileName.startsWith("extension-output") ||
+          change.document.fileName.endsWith(".git")
+        ) {
           return;
         }
         if (change.document.uri.toString() === `file://${configFile}`) {
