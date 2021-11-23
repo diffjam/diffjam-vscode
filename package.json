@@ -17,7 +17,7 @@
     "Other"
   ],
   "activationEvents": [
-    "workspaceContains:**/diffjam.yaml"
+    "*"
   ],
   "main": "./out/extension",
   "contributes": {

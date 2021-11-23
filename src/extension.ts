@@ -37,8 +37,14 @@ export function activate(context: ExtensionContext) {
   const todoDiagnostics = languages.createDiagnosticCollection("todo");
   disposables.push(todoDiagnostics);
   context.subscriptions.push(
-    workspace.onDidOpenTextDocument((doc) =>
+    workspace.onDidOpenTextDocument((doc: vscode.TextDocument) =>
       onChangeFindTodo(doc, todoDiagnostics)
+    )
+  );
+  // run when the document changes
+  context.subscriptions.push(
+    workspace.onDidChangeTextDocument((change: vscode.TextDocumentChangeEvent) =>
+      onChangeFindTodo(change.document, todoDiagnostics)
     )
   );
   // also run on active editor if already open - this will run everytime document comes
