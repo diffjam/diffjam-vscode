@@ -83,12 +83,6 @@ function registerCommands() {
       workspace.getConfiguration("diffjam").update("enable", false, true);
     })
   );
-
-  disposables.push(
-    commands.registerCommand("diffjam.Action", (args: any) => {
-      window.showInformationMessage(`diffjam action clicked with args=${args}`);
-    })
-  );
 }
 
 // this method is called when your extension is deactivated
