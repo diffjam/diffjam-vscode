@@ -37,7 +37,7 @@ function registerDiffJamDiagnostics(context: vscode.ExtensionContext) {
    * Enable this to log during development
    */
   // const loggingService = new LoggingService();
-  // loggingService.setOutputLevel("WARN");
+  // loggingService.setOutputLevel("INFO");
   // loggingService.logInfo(`Extension Name: diffjam`);
 
   const diagnosticEventSubscriptions = [
@@ -47,13 +47,13 @@ function registerDiffJamDiagnostics(context: vscode.ExtensionContext) {
     ),
     // run when the document changes
     workspace.onDidChangeTextDocument(
-      (change: vscode.TextDocumentChangeEvent) => {
+      async (change: vscode.TextDocumentChangeEvent) => {
         if (change.document.fileName.startsWith("extension-output")) {
           return;
         }
         if (change.document.uri.toString() === `file://${configFile}`) {
           // diffjam yaml has been updated - first reload the config
-          refreshDiffJamConfig();
+          await refreshDiffJamConfig();
         }
         runDiffJamOnDocument(change.document, diffJamDiagnostics);
       }
