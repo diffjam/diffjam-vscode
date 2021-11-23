@@ -9,10 +9,10 @@ import {
   window,
   workspace,
 } from "vscode";
-import { onChangeFindTodo } from "./diffjamDiagnostics";
+import { runDiffJamOnDocument } from "./diffjamDiagnostics";
 
 /** Code that is used to associate diagnostic entries with code actions. */
-export const TODO_MENTION = "todo_mention";
+export const DIFFJAM_RULE_BREACH = "DIFFJAM_RULE_BREACH";
 export const COMMAND = "code-actions-sample.command";
 
 // this method is called when your extension is activated
@@ -21,37 +21,55 @@ export const COMMAND = "code-actions-sample.command";
 let disposables: Disposable[] = [];
 
 export function activate(context: ExtensionContext) {
+  registerCommands();
+  registerDiffJamDiagnostics(context);
+}
 
-  disposables.push(commands.registerCommand("diffjam.enable", () => {
-    workspace.getConfiguration("diffjam").update("enable", true, true);
-  }));
+function registerDiffJamDiagnostics(context: vscode.ExtensionContext) {
+  const diffJamDiagnostics = languages.createDiagnosticCollection("diffjam");
+  disposables.push(diffJamDiagnostics);
 
-  disposables.push(commands.registerCommand("diffjam.disable", () => {
-    workspace.getConfiguration("diffjam").update("enable", false, true);
-  }));
-
-  disposables.push(commands.registerCommand("diffjam.Action", (args: any) => {
-    window.showInformationMessage(`diffjam action clicked with args=${args}`);
-  }));
-
-  const todoDiagnostics = languages.createDiagnosticCollection("todo");
-  disposables.push(todoDiagnostics);
-  context.subscriptions.push(
+  const diagnosticEventSubscriptions = [
+    // run when document is opened
     workspace.onDidOpenTextDocument((doc: vscode.TextDocument) =>
-      onChangeFindTodo(doc, todoDiagnostics)
-    )
-  );
-  // run when the document changes
-  context.subscriptions.push(
-    workspace.onDidChangeTextDocument((change: vscode.TextDocumentChangeEvent) =>
-      onChangeFindTodo(change.document, todoDiagnostics)
-    )
-  );
+      runDiffJamOnDocument(doc, diffJamDiagnostics)
+    ),
+    // run when the document changes
+    workspace.onDidChangeTextDocument(
+      (change: vscode.TextDocumentChangeEvent) =>
+        runDiffJamOnDocument(change.document, diffJamDiagnostics)
+    ),
+  ];
+  context.subscriptions.concat(diagnosticEventSubscriptions);
+
   // also run on active editor if already open - this will run everytime document comes
-  // into focus I think
+  // into focus
   if (vscode.window.activeTextEditor) {
-    onChangeFindTodo(vscode.window.activeTextEditor.document, todoDiagnostics);
+    runDiffJamOnDocument(
+      vscode.window.activeTextEditor.document,
+      diffJamDiagnostics
+    );
   }
+}
+
+function registerCommands() {
+  disposables.push(
+    commands.registerCommand("diffjam.enable", () => {
+      workspace.getConfiguration("diffjam").update("enable", true, true);
+    })
+  );
+
+  disposables.push(
+    commands.registerCommand("diffjam.disable", () => {
+      workspace.getConfiguration("diffjam").update("enable", false, true);
+    })
+  );
+
+  disposables.push(
+    commands.registerCommand("diffjam.Action", (args: any) => {
+      window.showInformationMessage(`diffjam action clicked with args=${args}`);
+    })
+  );
 }
 
 // this method is called when your extension is deactivated
