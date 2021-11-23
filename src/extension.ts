@@ -9,12 +9,10 @@ import {
   window,
   workspace,
 } from "vscode";
-import { Greggizer } from "./actionProviders";
 import { onChangeFindTodo } from "./diffjamDiagnostics";
 
 /** Code that is used to associate diagnostic entries with code actions. */
 export const TODO_MENTION = "todo_mention";
-
 export const COMMAND = "code-actions-sample.command";
 
 // this method is called when your extension is activated
@@ -24,21 +22,17 @@ let disposables: Disposable[] = [];
 
 export function activate(context: ExtensionContext) {
 
-  disposables.push(commands.registerCommand("diffjam.enableDiffjam", () => {
-    workspace.getConfiguration("diffjam").update("enableDiffjam", true, true);
+  disposables.push(commands.registerCommand("diffjam.enable", () => {
+    workspace.getConfiguration("diffjam").update("enable", true, true);
   }));
 
-  disposables.push(commands.registerCommand("diffjam.disableDiffjam", () => {
-    workspace.getConfiguration("diffjam").update("enableDiffjam", false, true);
+  disposables.push(commands.registerCommand("diffjam.disable", () => {
+    workspace.getConfiguration("diffjam").update("enable", false, true);
   }));
 
-  disposables.push(commands.registerCommand("diffjam.diffjamAction", (args: any) => {
+  disposables.push(commands.registerCommand("diffjam.Action", (args: any) => {
     window.showInformationMessage(`diffjam action clicked with args=${args}`);
   }));
-
-  const emojiDiagnostics = vscode.languages.createDiagnosticCollection("emoji");
-  disposables.push(emojiDiagnostics);
-  context.subscriptions.push(emojiDiagnostics);
 
   const todoDiagnostics = languages.createDiagnosticCollection("todo");
   disposables.push(todoDiagnostics);
@@ -52,13 +46,6 @@ export function activate(context: ExtensionContext) {
   if (vscode.window.activeTextEditor) {
     onChangeFindTodo(vscode.window.activeTextEditor.document, todoDiagnostics);
   }
-  context.subscriptions.push(
-    vscode.languages.registerCodeActionsProvider("markdown", new Greggizer(), {
-      providedCodeActionKinds: Greggizer.providedCodeActionKinds,
-    })
-  );
-
-
 }
 
 // this method is called when your extension is deactivated
