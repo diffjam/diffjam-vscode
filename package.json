@@ -3,7 +3,7 @@
   "displayName": "diffjam",
   "description": "custom linter and ratcheted build tool",
   "version": "0.0.2",
-  "publisher": "stackrock",
+  "publisher": "DiffJam",
   "private": true,
   "license": "MIT",
   "repository": {
