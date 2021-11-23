@@ -13,7 +13,6 @@ import {
   refreshDiffJamConfig,
   runDiffJamOnDocument,
 } from "./diffjamDiagnostics";
-import { LoggingService } from "./loggingService";
 
 /** Code that is used to associate diagnostic entries with code actions. */
 export const DIFFJAM_RULE_BREACH = "DIFFJAM_RULE_BREACH";
