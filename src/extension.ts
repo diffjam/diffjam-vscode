@@ -6,10 +6,14 @@ import {
   Disposable,
   ExtensionContext,
   languages,
-  window,
   workspace,
 } from "vscode";
-import { runDiffJamOnDocument } from "./diffjamDiagnostics";
+import {
+  configFile,
+  refreshDiffJamConfig,
+  runDiffJamOnDocument,
+} from "./diffjamDiagnostics";
+import { LoggingService } from "./loggingService";
 
 /** Code that is used to associate diagnostic entries with code actions. */
 export const DIFFJAM_RULE_BREACH = "DIFFJAM_RULE_BREACH";
@@ -29,6 +33,13 @@ function registerDiffJamDiagnostics(context: vscode.ExtensionContext) {
   const diffJamDiagnostics = languages.createDiagnosticCollection("diffjam");
   disposables.push(diffJamDiagnostics);
 
+  /**
+   * Enable this to log during development
+   */
+  // const loggingService = new LoggingService();
+  // loggingService.setOutputLevel("WARN");
+  // loggingService.logInfo(`Extension Name: diffjam`);
+
   const diagnosticEventSubscriptions = [
     // run when document is opened
     workspace.onDidOpenTextDocument((doc: vscode.TextDocument) =>
@@ -36,8 +47,16 @@ function registerDiffJamDiagnostics(context: vscode.ExtensionContext) {
     ),
     // run when the document changes
     workspace.onDidChangeTextDocument(
-      (change: vscode.TextDocumentChangeEvent) =>
-        runDiffJamOnDocument(change.document, diffJamDiagnostics)
+      (change: vscode.TextDocumentChangeEvent) => {
+        if (change.document.fileName.startsWith("extension-output")) {
+          return;
+        }
+        if (change.document.uri.toString() === `file://${configFile}`) {
+          // diffjam yaml has been updated - first reload the config
+          refreshDiffJamConfig();
+        }
+        runDiffJamOnDocument(change.document, diffJamDiagnostics);
+      }
     ),
   ];
   context.subscriptions.concat(diagnosticEventSubscriptions);

@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
 import { DIFFJAM_RULE_BREACH } from "./extension";
 import { findBreachesInText } from "diffjam/lib/src/findBreachesInText";
-import { getConfig } from "diffjam/lib/src/configFile";
+import { getConfig, refresh } from "diffjam/lib/src/configFile";
 
 const projectFolder = vscode.workspace.workspaceFolders?.map(
   (folder) => folder.uri.path
 )[0];
-const configFile = `${projectFolder}/diffjam.yaml`;
+export const configFile = `${projectFolder}/diffjam.yaml`;
 
 // interface FileBreach {
 //   lineNumber: number; // the lineNumber, 1-indexed
@@ -14,6 +14,10 @@ const configFile = `${projectFolder}/diffjam.yaml`;
 //   wholeLine: string; // the entire line that the match is in.  used for subsequent needles.
 //   message: string; // the policy description.
 // }
+
+export function refreshDiffJamConfig() {
+  refresh(configFile);
+}
 
 export function runDiffJamOnDocument(
   document: vscode.TextDocument,

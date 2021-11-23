@@ -688,10 +688,10 @@ detect-libc@^1.0.3:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
   integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
 
-diffjam@3.0.11:
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/diffjam/-/diffjam-3.0.11.tgz#f5e9b939af1466d91c5272bf5bda9637a1cc8054"
-  integrity sha512-xUGxy2sWjsTk/RgNLZ7LpaedtgT3t+kGpxSB21J5uDaPrkoH3cM7t5eYsC/DYM5+JYFWaLzs1YfVGY036iYduA==
+diffjam@3.0.12:
+  version "3.0.12"
+  resolved "https://registry.yarnpkg.com/diffjam/-/diffjam-3.0.12.tgz#b03e0abaa9752a35e71475cfef9dd00551549dfb"
+  integrity sha512-yEXmf0J6lWQe0CfWgdSde0dGsiFWPUY7GrQ96uXlEldYI3flY5g41ZMyrYrKNooDKp/zmIbLV5hp3H4oC0bP6A==
   dependencies:
     "@types/chalk" "^2.2.0"
     "@types/inquirer" "^8.1.3"
