@@ -2,13 +2,14 @@
   "name": "diffjam-vscode",
   "displayName": "diffjam",
   "description": "custom linter and ratcheted build tool",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "DiffJam",
   "private": true,
   "license": "MIT",
+  "homepage": "https://diffjam.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stackrock/diffjam-vscode"
+    "url": "https://github.com/diffjam/diffjam-vscode"
   },
   "engines": {
     "vscode": "^1.26.0"
