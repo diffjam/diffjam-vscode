@@ -10,7 +10,9 @@ import {
 } from "vscode";
 import {
   configFile,
+  gitignoreFile,
   refreshDiffJamConfig,
+  refreshGitIgnore,
   runDiffJamOnDocument,
 } from "./diffjamDiagnostics";
 
@@ -56,6 +58,10 @@ function registerDiffJamDiagnostics(context: vscode.ExtensionContext) {
         if (change.document.uri.toString() === `file://${configFile}`) {
           // diffjam yaml has been updated - first reload the config
           await refreshDiffJamConfig();
+        }
+        if (change.document.uri.toString() === `file://${gitignoreFile}`) {
+          // diffjam yaml has been updated - first reload the config
+          await refreshGitIgnore();
         }
         runDiffJamOnDocument(change.document, diffJamDiagnostics);
       }
