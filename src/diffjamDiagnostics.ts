@@ -8,13 +8,13 @@ import { join } from "path";
 
 const projectFolder = vscode.workspace.workspaceFolders?.map(
   (folder) => folder.uri.path
-)[0]!;
+)[0] || "";
 
 export const configFile = join(projectFolder, "diffjam.yaml");
 export const gitignoreFile = join(projectFolder, ".gitignore");
 
 let config: Config;
-let gitignore: GitIgnore
+let gitignore: GitIgnore;
 
 export async function refreshDiffJamConfig() {
   config = await Config.read(configFile);
@@ -46,7 +46,7 @@ export async function runDiffJamOnDocument(
   const fileContents = document.getText();
 
   // we should be checking the filename matched the glob
-  const breaches = findBreachesInText(fileName, fileContents, config, gitignore)
+  const breaches = findBreachesInText(fileName, fileContents, config, gitignore);
 
   const diagnostics: vscode.Diagnostic[] = breaches.map((breach) => {
     const range = new vscode.Range(
@@ -62,7 +62,7 @@ export async function runDiffJamOnDocument(
     );
     diagnostic.source = "diffjam.yaml";
     diagnostic.code = DIFFJAM_RULE_BREACH;
-    return diagnostic
+    return diagnostic;
   });
 
   diagnosticCollection.set(document.uri, diagnostics);
