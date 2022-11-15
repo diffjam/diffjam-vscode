@@ -30,7 +30,10 @@ export async function runDiffJamOnDocument(
   diagnosticCollection: vscode.DiagnosticCollection,
   logger?: LoggingService
 ) {
+
   if (!config) await refreshDiffJamConfig();
+  if (!gitignore) await refreshGitIgnore();
+
   // run diffjam to find actual diagnostics
 
   // quick no-op if policy is empty
@@ -38,7 +41,6 @@ export async function runDiffJamOnDocument(
     return;
   }
 
-  [];
   const fileName = document.fileName.replace(
     projectFolder ? `${projectFolder}/` : "",
     ""
@@ -49,6 +51,7 @@ export async function runDiffJamOnDocument(
   const breaches = findBreachesInText(fileName, fileContents, config, gitignore);
 
   const diagnostics: vscode.Diagnostic[] = breaches.map((breach) => {
+
     const range = new vscode.Range(
       breach.startLineNumber,
       breach.startColumn,

@@ -2,7 +2,7 @@
   "name": "diffjam-vscode",
   "displayName": "diffjam",
   "description": "custom linter and ratcheted build tool",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "DiffJam",
   "private": true,
   "license": "MIT",
