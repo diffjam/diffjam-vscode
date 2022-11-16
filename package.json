@@ -2,7 +2,7 @@
   "name": "diffjam-vscode",
   "displayName": "diffjam",
   "description": "custom linter and ratcheted build tool",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "DiffJam",
   "private": true,
   "license": "MIT",
@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.176",
-    "diffjam": "3.1.0",
+    "diffjam": "3.1.2",
     "lodash": "^4.17.21",
     "vscode-languageclient": "^7.0.0"
   }
