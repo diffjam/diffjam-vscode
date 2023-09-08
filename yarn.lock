@@ -545,10 +545,10 @@ detect-libc@^2.0.0:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.0.1.tgz#e1897aa88fa6ad197862937fbc0441ef352ee0cd"
   integrity sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==
 
-diffjam@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/diffjam/-/diffjam-3.1.0.tgz#f0545c98b4f76e558eeaa0518bd0104cbf5e14d3"
-  integrity sha512-ZZBtszs2CnDFceKxaUxlsE++ZnEgNyzUPFtmpfbHUduYxXdso9c/xuy+XkI5wE4+IK9SCwgQjCx7m8PesgNBdw==
+diffjam@3.1.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/diffjam/-/diffjam-3.2.5.tgz#2aca01c1190693bb3289a5f162e04db76938b820"
+  integrity sha512-IeiYhxLj4sk67/52bTLtIkD8MwJo0VE0gf9vFk0R97YicyrIBO94sONUWnqyB3K8ePSqq/38PmOA3vN2TEngeg==
   dependencies:
     axios "0.18.0"
     bluebird "^3.7.2"

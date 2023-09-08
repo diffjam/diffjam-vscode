@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.176",
-    "diffjam": "3.1.2",
+    "diffjam": "3.1.5",
     "lodash": "^4.17.21",
     "vscode-languageclient": "^7.0.0"
   }
