@@ -12,7 +12,7 @@
     "url": "https://github.com/diffjam/diffjam-vscode"
   },
   "engines": {
-    "vscode": "^1.26.0"
+    "vscode": "^1.38.0"
   },
   "categories": [
     "Other"
@@ -60,7 +60,8 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.176",
-    "diffjam": "3.1.5",
+    "@vscode/vsce": "^2.21.0",
+    "diffjam": "^3.2.5",
     "lodash": "^4.17.21",
     "vscode-languageclient": "^7.0.0"
   }
